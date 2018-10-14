@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/firestore";
+import { AngularFirestore } from "@angular/fire/firestore";
 import { Platform } from 'ionic-angular';
+/* 
 import { EncryptionProvider } from '../encryption/encryption';
-import { ENV } from '../../config/env.config';
+import { ENV } from '../../config/env.config'; 
+*/
 import { Storage } from '@ionic/storage';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -78,7 +80,9 @@ export class UserProvider {
 
   removeUser() {
     this.key = null;
-    this.suscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
     if (this.platform.is("cordova")) {
       this.storage.remove("user");
     } else if (localStorage.getItem("user")) {

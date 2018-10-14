@@ -11,7 +11,6 @@ import { UserProvider } from '../providers/user/user';
 
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
-import { firebaseConfig } from '../config/firebase.config';
 import { IonicStorageModule } from "@ionic/storage";
 import { EncryptionProvider } from '../providers/encryption/encryption';
 import { LocationProvider } from '../providers/location/location';
@@ -24,7 +23,7 @@ import { ENV } from '../config/env.config';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig, "tracker-transportistas"),
+    AngularFireModule.initializeApp(ENV.GOOGLE.FIREBASE),
     AngularFirestoreModule,
     IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
