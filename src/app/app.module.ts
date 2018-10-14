@@ -6,25 +6,41 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+import { UserProvider } from '../providers/user/user';
+
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { firebaseConfig } from '../config/firebase.config';
+import { IonicStorageModule } from "@ionic/storage";
+import { EncryptionProvider } from '../providers/encryption/encryption';
+import { LocationProvider } from '../providers/location/location';
+import { Geolocation } from '@ionic-native/geolocation';
+import { AgmCoreModule } from "@agm/core";
+import { ENV } from '../config/env.config';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage
-  ],
+  declarations: [MyApp, HomePage, LoginPage],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig, "tracker-transportistas"),
+    AngularFirestoreModule,
+    IonicStorageModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: ENV.GOOGLE.MAPS
+    })
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage
-  ],
+  entryComponents: [MyApp, HomePage, LoginPage],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    UserProvider,
+    // EncryptionProvider,
+    LocationProvider,
+    Geolocation
   ]
 })
 export class AppModule {}

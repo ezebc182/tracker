@@ -1,14 +1,18 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>
+            {{ user.name }}
+        </ion-title>
+        <ion-buttons>
+            <button ion-button (click)="logout()">
+            Salir
+          </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+    <agm-map [zoom]="16" [latitude]="user.lat" [longitude]="user.lng">
+        <agm-marker [latitude]="user.lat" [longitude]="user.lng"></agm-marker>
+    </agm-map>
 </ion-content>
